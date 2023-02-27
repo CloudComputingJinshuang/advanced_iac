@@ -3,20 +3,20 @@ provider "aws" {
 }
 
 # Create VPC
-resource "aws_vpc" "example" {
+resource "aws_vpc" "database_vpc" {
   cidr_block = "10.0.0.0/16"
 }
 
 # Create subnets
 resource "aws_subnet" "subnet1" {
   cidr_block = "10.0.1.0/24"
-  vpc_id = aws_vpc.example.id
+  vpc_id = aws_vpc.database_vpc.id
   availability_zone = "us-east-1a"
 }
 
 resource "aws_subnet" "subnet2" {
   cidr_block = "10.0.2.0/24"
-  vpc_id = aws_vpc.example.id
+  vpc_id = aws_vpc.database_vpc.id
   availability_zone = "us-east-1b"
 }
 
@@ -29,17 +29,17 @@ resource "aws_security_group" "rds" {
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  vpc_id = aws_vpc.example.id
+  vpc_id = aws_vpc.database_vpc.id
 }
 
 # Create DB subnet group
-resource "aws_db_subnet_group" "example" {
+resource "aws_db_subnet_group" "database_vpc" {
   name = "todo-subnet-group"
   subnet_ids = [aws_subnet.subnet1.id, aws_subnet.subnet2.id]
 }
 
 # Create RDS instance
-resource "aws_db_instance" "example" {
+resource "aws_db_instance" "database_vpc" {
   identifier = "todo"
   allocated_storage = 20
   engine = "mysql"
@@ -50,5 +50,5 @@ resource "aws_db_instance" "example" {
   password = "password"
   skip_final_snapshot = true
   vpc_security_group_ids = [aws_security_group.rds.id]
-  db_subnet_group_name = aws_db_subnet_group.example.name
+  db_subnet_group_name = aws_db_subnet_group.database_vpc.name
 }
