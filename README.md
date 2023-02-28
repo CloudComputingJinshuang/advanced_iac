@@ -9,7 +9,7 @@ config aws account:
 export AWS_REGION=us-east-1 
 export AWS_PROFILE=k8s
 
-1. to create aws_vpc and mySQL database:
+1. to create a network resources for database in database_vpc and for k8s cluster in cluster_vpc:
 
 terraform init
 terraform plan
