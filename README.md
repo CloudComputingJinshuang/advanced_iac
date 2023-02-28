@@ -19,5 +19,8 @@ terraform apply
 
 terraform destroy
 
+2. create the k8s cluster in  cluster_vpc
+
+
 
 

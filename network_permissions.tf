@@ -33,14 +33,18 @@ resource "aws_subnet" "subnet2" {
 # Create security group for RDS
 resource "aws_security_group" "rds" {
   name_prefix = "rds-"
+
   ingress {
-    from_port = 0
+    from_port = 3306
     to_port = 3306
     protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [aws_vpc.cluster_vpc.cidr_block]
   }
+  
   vpc_id = aws_vpc.database_vpc.id
 }
+
+
 
 # Create DB subnet group
 resource "aws_db_subnet_group" "database_vpc" {
@@ -58,42 +62,10 @@ resource "aws_vpc" "cluster_vpc" {
   }
 }
 
-resource "aws_subnet" "cluster_subnet_a" {
-  vpc_id     = aws_vpc.cluster_vpc.id
-  cidr_block = "192.168.1.0/24"
-  availability_zone = "us-east-1a"
-  tags = {
-    Name = "cluster-subnet-a"
-  }
-}
-
-resource "aws_subnet" "cluster_subnet_b" {
-  vpc_id     = aws_vpc.cluster_vpc.id
-  cidr_block = "192.168.2.0/24"
-  availability_zone = "us-east-1b"
-  tags = {
-    Name = "cluster-subnet-b"
-  }
-}
-
-resource "aws_subnet" "cluster_subnet_c" {
-  vpc_id     = aws_vpc.cluster_vpc.id
-  cidr_block = "192.168.3.0/24"
-  availability_zone = "us-east-1c"
-  tags = {
-    Name = "cluster-subnet-c"
-  }
-}
-
-resource "aws_security_group" "cluster_sg" {
-  name_prefix = "cluster-sg"
+resource "aws_internet_gateway" "kops_cluster_igw" {
   vpc_id = aws_vpc.cluster_vpc.id
-
-  ingress {
-    from_port   = 0
-    to_port     = 65535
-    protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/8"]
+  tags = {
+    Name = "cluster_igw"
   }
 }
 
@@ -141,19 +113,6 @@ resource "aws_db_instance" "RDSmySql" {
 output "cluster_vpc_id" {
   value = aws_vpc.cluster_vpc.id
 }
-
-output "subnet_1" {
-  value = aws_vpc.cluster_vpc.cluster_subnet_a.id
-}
-
-output "subnet_2" {
-  value = aws_vpc.cluster_vpc.cluster_subnet_b.id
-}
-
-output "subnet_3" {
-  value = aws_vpc.cluster_vpc.cluster_subnet_c.id
-}
-
 
 
 
