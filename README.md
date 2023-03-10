@@ -23,7 +23,7 @@ save the cluter-vpc, subnets, utility subnets info.
 
 2. create the k8s cluster in  cluster_vpc 
 
-# k8s_aws
+######### k8s_aws
 
 ssh-keygen -t rsa -f ~/.ssh/k8s_key -P ""
 
