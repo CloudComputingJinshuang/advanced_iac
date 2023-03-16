@@ -9,6 +9,9 @@ config aws account:
 export AWS_REGION=us-east-1 
 export AWS_PROFILE=k8s
 
+export NAME=k8s.csye6225jinshuang.me
+export KOPS_STATE_STORE=s3://jin-k8s-com-state-store
+
 1. to create a network resources for database in database_vpc and for k8s cluster in cluster_vpc:
 
 terraform init
@@ -140,4 +143,16 @@ kubectl create secret generic ssh-key-secret --from-file=id_rsa=/Users/niujinshu
 kubectl apply -f init2.yml
 kubectl logs myapp-pod -c schema-migration
 
+kubectl delete -f init2.yml
 
+
+<!-- test with flayway image:  -->
+
+
+sudo apt update
+
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
