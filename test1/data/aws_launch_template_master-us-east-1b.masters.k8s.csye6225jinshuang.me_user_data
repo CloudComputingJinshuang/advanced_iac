@@ -172,7 +172,7 @@ kubeAPIServer:
   featureGates:
     CSIMigrationAWS: "true"
     InTreePluginAWSUnregister: "true"
-  image: registry.k8s.io/kube-apiserver:v1.25.7@sha256:bed3b7de84c9d03d3f30d52568077210dcbb164f0d0e8228b7169331b1aa18ef
+  image: registry.k8s.io/kube-apiserver:v1.25.8@sha256:5263ad23e67f5b0cac3e2d817ba3505023cac4766294fd6bc314646a3dc99750
   kubeletPreferredAddressTypes:
   - InternalIP
   - Hostname
@@ -201,7 +201,7 @@ kubeControllerManager:
   featureGates:
     CSIMigrationAWS: "true"
     InTreePluginAWSUnregister: "true"
-  image: registry.k8s.io/kube-controller-manager:v1.25.7@sha256:12d0c4cca129fd24a7b2e050bc67d2a4a6059cafa06a2b84bd86b081f89a9b82
+  image: registry.k8s.io/kube-controller-manager:v1.25.8@sha256:5ffb31d2d388497653f7cacbd9c60b0e41c3a35af0f0aeb3ddbf1e3790728309
   leaderElection:
     leaderElect: true
   logLevel: 2
@@ -209,13 +209,13 @@ kubeControllerManager:
 kubeProxy:
   clusterCIDR: 100.96.0.0/11
   cpuRequest: 100m
-  image: registry.k8s.io/kube-proxy:v1.25.7@sha256:673a1b3cee0d57d78e91c33ff488afb13f09f968b8750ecf0a0eabec6f5a93eb
+  image: registry.k8s.io/kube-proxy:v1.25.8@sha256:ba15c8085615f87f59ddd3abdcca6289189b5d11f035f3373b3fc9afb7101620
   logLevel: 2
 kubeScheduler:
   featureGates:
     CSIMigrationAWS: "true"
     InTreePluginAWSUnregister: "true"
-  image: registry.k8s.io/kube-scheduler:v1.25.7@sha256:556cc202a64cde3c84a2e11be976eec8514966d961b4339cb299bfd5a71835de
+  image: registry.k8s.io/kube-scheduler:v1.25.8@sha256:a8d6d205caa63d8891cc8cdcaef539afa37136effa912056277a90daf100946d
   leaderElection:
     leaderElect: true
   logLevel: 2
@@ -266,7 +266,7 @@ CloudProvider: aws
 ConfigBase: s3://jin-k8s-com-state-store/k8s.csye6225jinshuang.me
 InstanceGroupName: master-us-east-1b
 InstanceGroupRole: Master
-NodeupConfigHash: cCTS+//LPoIcp/Shg9BR5e9id2aqiyjh2yIK77CJcXc=
+NodeupConfigHash: s2S3ML825shMv9mchHP4nrcZZvQXouno7T6V3eCS5sY=
 
 __EOF_KUBE_ENV
 
